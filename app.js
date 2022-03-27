@@ -1,11 +1,11 @@
-// require('dotenv').config();
+// require('dotenv').config(); это для env
 const express = require('express');
 const mongoose = require('mongoose');
 // const cors = require('cors');
 // const { errors } = require('celebrate');
-// const routesUser = require('./routes/users');
+const routesUser = require('./routes/users');
 // const routerCard = require('./routes/cards');
-// const { NotFoundErr } = require('./errors');
+const { NotFoundErr } = require('./errors');
 // const auth = require('./middlewares/auth');
 // const { requestLogger, errorLogger } = require('./middlewares/Logger');
 
@@ -24,23 +24,23 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-// app.use(routesUser);
+app.use(routesUser);
 
 // app.use(routerCard);
 
 // app.use(auth);
-/*
+
 app.use((req, res, next) => {
   next(new NotFoundErr('Не корректный URL'));
 });
-*/
+
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
 });
-/*
-app.use(errorLogger);
 
-app.use(errors());
+// app.use(errorLogger);
+
+// app.use(errors());
 // здесь обрабатываем все ошибки
 app.use((err, req, res, next) => {
 //  console.log(err);
@@ -51,5 +51,5 @@ app.use((err, req, res, next) => {
 
   next();
 });
-*/
+
 app.listen(PORT);
