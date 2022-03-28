@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-/*
 userSchema.statics.findUserByCredentials = function (email, password) {
   // попытаемся найти пользователя по почте
   return this.findOne({ email }).select('+password') // this — это модель User
@@ -45,5 +44,5 @@ userSchema.statics.findUserByCredentials = function (email, password) {
         });
     });
 };
-*/
+
 module.exports = mongoose.model('user', userSchema);

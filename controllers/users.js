@@ -1,4 +1,4 @@
-// const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {
@@ -95,10 +95,7 @@ const login = (req, res, next) => {
     .then((user) => {
       // аутентификация успешна! пользователь в переменной user
       // создадим токен
-      // const token = jwt.sign({ _id: user._id }, // эти две строки это для env
-      // NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      const token = jwt.sign({ _id: user._id }, 'dev-secret', { expiresIn: '7d' });
-
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       // вернём токен
       res.send({ token });
     })

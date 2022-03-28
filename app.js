@@ -1,4 +1,4 @@
-// require('dotenv').config(); это для env
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 // const cors = require('cors');
@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const routesUser = require('./routes/users');
 const routerMovie = require('./routes/movies');
 const { NotFoundErr } = require('./errors');
-// const auth = require('./middlewares/auth');
+const auth = require('./middlewares/auth');
 // const { requestLogger, errorLogger } = require('./middlewares/Logger');
 
 const { PORT = 3000 } = process.env;
@@ -28,7 +28,7 @@ app.use(routesUser);
 
 app.use(routerMovie);
 
-// app.use(auth);
+app.use(auth);
 
 app.use((req, res, next) => {
   next(new NotFoundErr('Не корректный URL'));

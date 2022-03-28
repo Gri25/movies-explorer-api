@@ -2,9 +2,10 @@ const router = require('express').Router();
 const {
   createUser, updateProfile, login, getUserMe,
 } = require('../controllers/users');
+const auth = require('../middlewares/auth');
 // обязательно смотри как и куда вставлять миделверы в запросы
-router.get('/users/me', getUserMe);
-router.patch('/users/me', updateProfile);
+router.get('/users/me', auth, getUserMe);
+router.patch('/users/me', auth, updateProfile);
 router.post('/signup', createUser);
 router.post('/signin', login);
 

@@ -10,7 +10,7 @@ const getMovies = (req, res, next) => {
 };
 
 const createMovies = (req, res, next) => {
-  // const ownerId = req.user._id; после аунтификации добавляем хозяина
+  const ownerId = req.user._id;
   const {
     country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail,
   } = req.body;
@@ -26,7 +26,7 @@ const createMovies = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-  //  owner: ownerId,
+    owner: ownerId,
   })
     // возвращаем записанные в базу данные карточки
     .then((movie) => res.send({ data: movie }))
@@ -45,9 +45,9 @@ const deleteMovies = (req, res, next) => {
   Movie.findById(id)
     .orFail(() => new NotFoundErr('Карточка по переданному id не найдена'))
     .then((movie) => {
-    //  if (!movie.movieId.equals(req.user._id)) { // эта часть уже для варианта с овнером
-    //    return next(new ForbiddenErr('Нельзя удалить чужую карточку'));
-    //  }
+      if (!movie.movieId.equals(req.user._id)) { // эта часть уже для варианта с овнером
+        return next(new ForbiddenErr('Нельзя удалить чужую карточку'));
+      }
       return movie.remove()
         .then(() => res.send({ message: 'Карточка удалена' }));
     })
