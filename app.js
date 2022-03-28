@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // const cors = require('cors');
 // const { errors } = require('celebrate');
 const routesUser = require('./routes/users');
-// const routerCard = require('./routes/cards');
+const routerMovie = require('./routes/movies');
 const { NotFoundErr } = require('./errors');
 // const auth = require('./middlewares/auth');
 // const { requestLogger, errorLogger } = require('./middlewares/Logger');
@@ -26,7 +26,7 @@ app.get('/crash-test', () => {
 
 app.use(routesUser);
 
-// app.use(routerCard);
+app.use(routerMovie);
 
 // app.use(auth);
 

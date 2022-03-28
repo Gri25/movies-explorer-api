@@ -54,9 +54,11 @@ const movieSchema = new mongoose.Schema({
       required: true,
     },
   ],
+  /*
   movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer
     required: true, // мне кажется что это не единственное свойство надо разбираться что ещё нужно
   },
+  */
   nameRU: { // название фильма на русском языке
     type: String,
     required: true, // с языками наверное нужно будет тоже что-то добавить
@@ -67,4 +69,4 @@ const movieSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('card', movieSchema);
+module.exports = mongoose.model('movie', movieSchema);
