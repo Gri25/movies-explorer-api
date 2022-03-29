@@ -46,14 +46,21 @@ const movieSchema = new mongoose.Schema({
     },
     message: 'Не корректно введен URL!',
   },
+  /*
   owner: [ // _id пользователя, который сохранил фильм
     {
-      type: mongoose.Schema.Types.ObjectId, // это вроде как для того что бы сделать ссылку на юзера
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
       default: [], // не знаю нужно ли это
       required: true,
     },
   ],
+  */
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
   /*
   movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer
     required: true, // мне кажется что это не единственное свойство надо разбираться что ещё нужно

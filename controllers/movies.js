@@ -45,7 +45,7 @@ const deleteMovies = (req, res, next) => {
   Movie.findById(id)
     .orFail(() => new NotFoundErr('Карточка по переданному id не найдена'))
     .then((movie) => {
-      if (!movie.movieId.equals(req.user._id)) { // эта часть уже для варианта с овнером
+      if (!movie.owner.equals(req.user._id)) {
         return next(new ForbiddenErr('Нельзя удалить чужую карточку'));
       }
       return movie.remove()

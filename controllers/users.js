@@ -29,11 +29,11 @@ const getUserMe = (req, res, next) => {
 };
 
 const updateProfile = (req, res, next) => {
-  const { name, about } = req.body;
+  const { email, name } = req.body;
   // обновим имя найденного по _id пользователя
   User.findByIdAndUpdate(
     req.user._id,
-    { name, about },
+    { email, name },
     {
       new: true, // обработчик then получит на вход обновлённую запись
       runValidators: true, // данные будут валидированы перед изменением
