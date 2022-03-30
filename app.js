@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors'); не забудь скачать этот модуль
+const cors = require('cors');
 const { errors } = require('celebrate');
 const routesUser = require('./routes/users');
 const routerMovie = require('./routes/movies');
@@ -12,7 +12,7 @@ const { requestLogger, errorLogger } = require('./middlewares/Logger');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 
 app.use(express.json());
 
