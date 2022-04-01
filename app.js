@@ -3,13 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { errors } = require('celebrate');
-const routesUser = require('./routes/users');
-const routerMovie = require('./routes/movies');
+const routes = require('./routes/index');
 const { NotFoundErr } = require('./errors');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/Logger');
+const errorHandler = require('./middlewares/errorHandler');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DATA_HOST, NODE_ENV } = process.env;
 
 const app = express();
 app.use(cors());
@@ -24,9 +24,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(routesUser);
-
-app.use(routerMovie);
+app.use(routes);
 
 app.use(auth);
 
@@ -34,22 +32,14 @@ app.use((req, res, next) => {
   next(new NotFoundErr('Не корректный URL'));
 });
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? 'mongodb://localhost:27017/moviesdb' : DATA_HOST, {
   useNewUrlParser: true,
 });
 
 app.use(errorLogger);
 
 app.use(errors());
-// здесь обрабатываем все ошибки
-app.use((err, req, res, next) => {
-//  console.log(err);
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'Ошибка на стороне сервера';
-  res.status(statusCode).send({ message });
-  //  res.status(500).send({ message: 'На сервере произошла ошибка' });
 
-  next();
-});
+app.use(errorHandler);
 
 app.listen(PORT);

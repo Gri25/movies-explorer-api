@@ -100,7 +100,7 @@ const login = (req, res, next) => {
       res.send({ token });
     })
     .catch(() => {
-      next(new UnAutorizedErr('Ошибка авторизации'));
+      next(new UnAutorizedErr('Неправильная почта или пароль'));
     });
 };
 

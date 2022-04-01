@@ -61,11 +61,10 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  /*
   movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer
-    required: true, // мне кажется что это не единственное свойство надо разбираться что ещё нужно
+    type: Number,
+    required: true,
   },
-  */
   nameRU: { // название фильма на русском языке
     type: String,
     required: true, // с языками наверное нужно будет тоже что-то добавить

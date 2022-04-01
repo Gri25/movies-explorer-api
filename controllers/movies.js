@@ -12,7 +12,17 @@ const getMovies = (req, res, next) => {
 const createMovies = (req, res, next) => {
   const ownerId = req.user._id;
   const {
-    country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail,
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    movieId,
+    thumbnail,
   } = req.body;
   // записываем данные в базу
   Movie.create({
@@ -26,6 +36,7 @@ const createMovies = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
+    movieId,
     owner: ownerId,
   })
     // возвращаем записанные в базу данные карточки
