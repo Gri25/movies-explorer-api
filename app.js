@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   next(new NotFoundErr('Не корректный URL'));
 });
 
-mongoose.connect(NODE_ENV === 'production' ? 'mongodb://localhost:27017/moviesdb' : DATA_HOST, {
+mongoose.connect(NODE_ENV === 'production' ? DATA_HOST : 'mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
 });
 
