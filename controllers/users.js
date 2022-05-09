@@ -97,7 +97,7 @@ const login = (req, res, next) => {
       // создадим токен
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       // вернём токен
-      res.send({ token, email: user.email, name: user.name }); // если что сотри имейл и нейм
+      res.send({ token }); // если что сотри имейл и нейм email: user.email, name: user.name
     })
     .catch(() => {
       next(new UnAutorizedErr('Неправильная почта или пароль'));
