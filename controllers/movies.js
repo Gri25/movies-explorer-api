@@ -2,7 +2,7 @@ const Movie = require('../models/movie');
 const { NotFoundErr, BadRequestErr, ForbiddenErr } = require('../errors');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find(req.user._id)
     .then((movies) => res.send({ data: movies }))
     .catch((err) => {
       next(err);
